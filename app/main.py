@@ -1,6 +1,5 @@
-import requests
-import re
-import argparse
+import requests #The requests Python library allows you to send HTTP requests and handle the response in your Python code.
+import re #The re Python library provides support for regular expressions, which are used to match patterns in strings.
 
 
 
@@ -14,25 +13,26 @@ def get_age(name):
     
     # get html
     response = requests.get(url)
-    html = response.text
+    html = response.text #returuning the return value 
+
     
     # extracting age from html 
     pattern = "\(age.+\d{2}\)"
     age = re.findall(pattern, html)[0]
-    age = age.split(";")[-1].replace(")", "")
+    age = age.split(";")[-1].replace(")", "") #when split that means replacing the value for a line. "dog; cat; donkey" would equal 'dog', cat' monkey'
     
     # creating an fstring for the name and how 
     name = name.replace("_", " ")
     result = f"{name.title()} has been alive for {age} years"
-    
+    #anything that changes hte string is called string malipulation
+
     # returning output from function 
     return result 
 
 
 if __name__=="__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--name")
 
-    args=parser.parse_args()
-    result= get_age(args.name)
+    name = input("Enter name:")
+
+    result = get_age(name)
     print(result)
